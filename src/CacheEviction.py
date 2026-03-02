@@ -19,7 +19,7 @@ def fifo(k, requests):
 
     return misses
 
-def lru_policy(k, requests):
+def lru(k, requests):
     cache = []
     last_used = {}
     misses = 0
@@ -59,10 +59,12 @@ def main():
         requests = list(map(int, f.readline().strip().split()))
 
     fifo_misses = fifo(k, requests)
-    lru_misses = lru_policy(k, requests)
+    lru_misses = lru(k, requests)
+    optff_misses = optff(k, requests)
 
     print("FIFO  :", fifo_misses)
     print("LRU  :", lru_misses)
+    print("OPTFF :", optff_misses)
 
 
 
