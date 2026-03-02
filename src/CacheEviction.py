@@ -43,6 +43,40 @@ def lru(k, requests):
                 last_used[r] = time
 
     return misses
+def optff(k, requests):
+    cache = []
+    misses = 0
+    m = len(requests)
+
+    for i in range(m):
+        r = requests[i]
+
+        if r in cache:
+            continue
+
+        misses += 1
+
+        if len(cache) < k:
+            cache.append(r)
+        else:
+            # find  next request occurs farthest in the future
+            farthest_index = -1
+            item_to_remove = None
+
+            for item in cache:
+                if item in requests[i+1:]:
+                    next_use = requests[i+1:].index(item)
+                else:
+                    next_use = float('inf')
+
+                if next_use > farthest_index:
+                    farthest_index = next_use
+                    item_to_remove = item
+
+            cache.remove(item_to_remove)
+            cache.append(r)
+
+    return misses
 
 def main():
     if len(sys.argv) != 2:
