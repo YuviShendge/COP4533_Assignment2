@@ -43,6 +43,7 @@ def lru(k, requests):
                 last_used[r] = time
 
     return misses
+
 def optff(k, requests):
     cache = []
     misses = 0
@@ -59,7 +60,7 @@ def optff(k, requests):
         if len(cache) < k:
             cache.append(r)
         else:
-            # find  next request occurs farthest in the future
+            # find next request occurs farthest in the future
             farthest_index = -1
             item_to_remove = None
 
@@ -99,8 +100,6 @@ def main():
     print("FIFO  :", fifo_misses)
     print("LRU  :", lru_misses)
     print("OPTFF :", optff_misses)
-
-
 
 if __name__ == "__main__":
     main()
